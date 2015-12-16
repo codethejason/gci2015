@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+<head>
+    <title>OpenStreetMap Geolocation from Postal Code</title>
+    <link href="style.css" rel="stylesheet">
+    <script src="apicaller.js"></script>
+</head>
+<body>
+    <h1>Geolocation from OpenStreetMap</h1>
+    <form method="post" action="index.html">
+        <label for="postalcode">Enter your zip code:</label> <!-- for is for the id, not the name-->
+        <br>
+        <input name="postalcode" id="postalcode" type="number" min="10000" max="99999"> <!-- maxlength not enforced-->
+        <br>
+        <input name="submit" id="submit" type="submit" value="Check Location">
+    </form>
+</body>
+</html>
