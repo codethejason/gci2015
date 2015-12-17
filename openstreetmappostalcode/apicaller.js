@@ -9,7 +9,7 @@ window.onload = function() {
         
         //new XML quest
         var request = new XMLHttpRequest();
-        var url = 'http://nominatim.openstreetmap.org/search?format=xml&country=us&postalcode='+value; // For now it'll only be for United States
+        var url = 'http://nominatim.openstreetmap.org/search?format=xml&country=in&postalcode='+value; // For now it'll only be for India
         
         //When it's ready, do this
         request.onreadystatechange = function() {
