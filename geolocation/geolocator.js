@@ -1,6 +1,8 @@
 window.onload = function() {    
   var getLocation = function(event) {
       event.preventDefault();
+      doStuff.resultBox.querySelector('.latitude').innerHTML = "<img src='loading.gif' width=50 alt='loading'>";
+      doStuff.resultBox.querySelector('.longitude').innerHTML = "<img src='loading.gif' width=50 alt='loading'>";
       if(navigator.geolocation) { //if geolocation is supported
         var lat, lon;
         navigator.geolocation.getCurrentPosition(function(position){
