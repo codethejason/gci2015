@@ -1,6 +1,7 @@
 from urllib2 import Request, urlopen, URLError #Has requests functionality
 import urllib #Must use because urllib2 does not have urlencode just in case query string has spaces
 import json
+from pyquery import PyQuery as pq
 
 parameters = { 'count' : 100, 'q' : 'Star Wars movie'}
 parameters = urllib.urlencode(parameters)
@@ -14,6 +15,13 @@ try:
 	results = json.loads(results)
 	results = results["statuses"]
 	for result in results:
-		print result["text"].encode('utf-8'), '\n'
+		tweet = result["text"]
+		if "Emoji--forText" not in tweet:
+			print tweet, '\n'
+		else:
+		  #emoji_key = pandas.read_csv('emoji_table.txt', encoding='utf-8', index_col=0)
+		  img = pq(tweet)('img')
+		  print img.attr("alt").encode("utf-8")
 except URLError, e:
     print 'Error Code:', e
+
