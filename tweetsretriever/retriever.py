@@ -33,6 +33,8 @@ try:
 				#Then for each image tag replace it with its alt (which is the actual emoji)
 		    img = pq(itemFound)('img')
 		    tweet = tweet.replace(itemFound, img.attr("alt"))
+		    #Sometimes loklak returns unclosed spans
+		    tweet = tweet.replace('</span>', '')
 		  
 		  print tweet.encode('utf-8')
 #Return an error if request fails
