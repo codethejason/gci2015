@@ -3,13 +3,19 @@
 <head>
     <title>Lights Out</title>
     <link href="style.css" rel="stylesheet">
-    <script src="geolocator.js"></script>
+    <script src="controls.js"></script>
 </head>
 <body>
   <h1>Lights Out</h1>
+  <div class="description">A game purely based on HTML/CSS/JS written by codethejason. Select the lightbulb and flip the switches on and off!</div>
+  <div class="lightbulbs">
+    <div class="lightbulb selected"></div>
+    <div class="lightbulb"></div>
+  </div>
   <div class="lightbox">
-    <div class="lightswitch"></div>
-    <div class="lightswitch"></div>
+    <div class="lightswitchcontainer"><div class="lightswitch"></div></div>
+    <div class="lightswitchcontainer"><div class="lightswitch"></div></div>
+    <div class="lightswitchcontainer"><div class="lightswitch"></div></div>
   </div>
 </body>
 </html>
