@@ -9,10 +9,10 @@ window.onload = function() {
     this.element = element;
     //change which one is currently selected
     this.changeSelection = function() {
-      var childnodes = this.element.parentNode.childNodes;
-      for(var i = 0; i < childnodes.length; i++) {
+      for(var i = 0; i < lights.length; i++) {
         //deselect all the light bulbs
-        this.element.parentNode.childNodes[i].className = "lightbulb";
+        document.getElementsByClassName('lightbulb')[i].className = "lightbulb";
+        lights[i].selected = false;
       }
       //select the light bulb the user clicked
       this.element.className = "lightbulb selected";
@@ -42,7 +42,7 @@ window.onload = function() {
       }
       for(var i = 0; i < lights.length; i++) {
         //toggle the lightbulb so it turns on and off
-        if(lights[i].element.className == "lightbulb selected") {
+        if(lights[i].selected) {
           lights[i].toggleOn();
         }
       }
