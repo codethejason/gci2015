@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <title>Hangman</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+  <script src="script.js"></script>
+  <script src="canvas.js"></script>
+</head>
+<body>
+  <div class="introOverlay">
+    <div class="card">
+      <h1>HANGMAN</h1>
+      <p>Guess the right letters!</p><p>Made for <a href="http://fossasia.org">FOSSASIA</a> 2015 in JS by codethejason.</p>
+      <div class="playCircle"><div class="triangle"></div></div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="column">
+      <h1>HANGMAN IN JS</h1>
+      <div class="category">
+          <select class="chooseCategory">
+            <option value="animals">Animals</option>
+            <option value="chores">Chores</option>
+            <option value="countries">Countries</option>
+            <option value="sports">Sports</option>
+            <option value="companies">Tech Companies</option>
+          </select>
+        </div>
+        <div class="lettersForGuessing"></div>
+        <div class="word"></div>
+      </div>
+    <div class="column"><canvas id="hangman">Your browser is not supported.</canvas></div>
+    <div class="clearfix"></div>
+  </div>
+</body>
+</html>
