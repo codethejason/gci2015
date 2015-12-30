@@ -1,8 +1,4 @@
-$(document).ready(function () {
-  $('.playCircle').on("click", function () {
-    $('.introOverlay').css("top", "100%");
-  });
-    
+$(document).ready(function () {  
   var letters = {
     alphabet: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
         'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
@@ -41,14 +37,6 @@ $(document).ready(function () {
     }
   }
   
-  letters.populate();
-  $('.letter').on("click", function () {
-    if(word.guessesLeft) {
-      var id = $(this).attr('id');
-      word.guess(id);
-      letters.turnUsed(id);
-    }
-  });
   
   var word = {
     word: "",
@@ -130,6 +118,25 @@ $(document).ready(function () {
     $('.word').html('');
     letters.reset();
   }
+  
+  /***
+  Initialization and Events
+  ***/
+  
+  $('.playCircle').on("click", function () {
+    $('.introOverlay').css("top", "100%");
+  });
+  
+  
+  letters.populate();
+  $('.letter').on("click", function () {
+    if(word.guessesLeft) {
+      var id = $(this).attr('id');
+      word.guess(id);
+      letters.turnUsed(id);
+    }
+  });
+  
   word.generate($('#chooseCategory option:selected').val());
   $('#chooseCategory').on("change", function () {
     word.reset();

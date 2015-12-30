@@ -20,8 +20,33 @@ window.onload = function () {
   };
 
   hanger = function () {
-    draw(150, 175, 150, 150);
+    draw(100, 25, 100, 50);
   };
 
+  head = function () {
+    context.beginPath();
+    context.arc(100, 60, 10, 0, 2*Math.PI);
+    context.stroke();
+  };
+
+  stick = function () {
+    draw(100, 70, 100, 120);
+  };
+
+  arms = function () {
+    draw(100, 90, 80, 80); 
+    draw(100, 90, 120, 80);
+  };
+
+  legs = function () {
+    draw(100, 120, 80, 140); 
+    draw(100, 120, 120, 140);
+  };
   
+  stand();
+  hanger();
+  head();
+  stick();
+  arms();
+  legs();
 };
