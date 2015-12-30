@@ -112,6 +112,9 @@ div.lettersForGuessing {
       color: #404040;
       background-color: #FFC65D; }
 
+div.word {
+  margin-top: 100px; }
+
 span.letterInWord {
   font-size: 70px;
   color: #FFC65D;

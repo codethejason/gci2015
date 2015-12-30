@@ -2,71 +2,100 @@ $(document).ready(function () {
   $('.playCircle').on("click", function () {
     $('.introOverlay').css("top", "100%");
   });
-  
-  var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
-        'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
-        't', 'u', 'v', 'w', 'x', 'y', 'z'];
-  
-  var letters = {
-    populate: populate
-  }
-  
-  var populate = function () {
-    var lettersForGuessing = $('.lettersForGuessing');
-    for(var i = 0; i < alphabet.length; i++) {
-      lettersForGuessing.append("<span id='"+alphabet[i]+"' class='letter'>"+alphabet[i].toUpperCase()+"</span>");
+    
+  Array.prototype.allValuesSame = function() {
+
+    for(var i = 1; i < this.length; i++)
+    {
+        if(this[i] !== this[0])
+            return false;
     }
+
+    return true;
+  }
+  var letters = {
+    alphabet: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+        'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+        't', 'u', 'v', 'w', 'x', 'y', 'z'],
+    populate: populate,
+    turnUsed: turnUsed,
+    reset: resetLetters
   }
   
-  var turnUsed = function (letter) {
-    var index = alphabet.indexOf(letter);
+  function populate () {
+    var lettersForGuessing = $('.lettersForGuessing');
+    var vowels = ['a', 'e', 'i', 'o', 'u'];
+    for(var i = 0; i < this.alphabet.length; i++) {
+      if(vowels.indexOf(this.alphabet[i]) != -1) {
+        lettersForGuessing.append("<span id='"+this.alphabet[i]+"' class='letter used'>"+this.alphabet[i].toUpperCase()+"</span>");
+      } else {
+        lettersForGuessing.append("<span id='"+this.alphabet[i]+"' class='letter'>"+this.alphabet[i].toUpperCase()+"</span>");
+      }
+    }
+    
+  }
+  
+  function turnUsed (letter) {
+    var index = this.alphabet.indexOf(letter);
+    var vowels = ['a', 'e', 'i', 'o', 'u'];
     $(".letter:eq("+index+")").addClass('used');
   }
   
-  var removeUsedAll = function () {
+  function resetLetters () {
     var letters = $('.letter');
-    for(var i = 0; i < alphabet.length; i++) {
-      letters.removeClass('used');
+    var vowels = ['a', 'e', 'i', 'o', 'u'];
+    for(var i = 0; i < this.alphabet.length; i++) {
+      if(vowels.indexOf(this.alphabet[i]) != -1) {
+        letters.removeClass('used');
+      }
     }
   }
   
-  populate();
+  letters.populate();
   $('.letter').on("click", function () {
-    turnUsed($(this).attr('id'));
+    if(word.guessesLeft) {
+      var id = $(this).attr('id');
+      word.guess(id);
+      letters.turnUsed(id);
+    }
   });
   
   var word = {
-    word: '',
+    word: "",
     wordArray: [],
+    guessesLeft: 5,
     get: getWord,
     generate: generateWord,
     fill: fillWord,
-    guess: guess
+    guess: guessWord,
+    reset: resetWord
   };
   
   var availableWords = {
-    'animals': {"bear", "lion", "kangaroo", "tiger", "frog"},
-    'animals': {"bear", "lion", "kangaroo", "tiger", "frog"},
-    'animals': {"bear", "lion", "kangaroo", "tiger", "frog"},
-    'animals': {"bear", "lion", "kangaroo", "tiger", "frog"},
-    'animals': {"bear", "lion", "kangaroo", "tiger", "frog"}
+    "animals": ["bear", "lion", "kangaroo", "tiger", "frog"],
+    "chores": ["taking out the trash", "washing the dishes", "vacuuming", "tending the garden", "dusting"],
+    "countries": ["india", "china", "taiwan", "france", "germany"],
+    "sports": ["hockey", "basketball", "football", "baseball", "tennis"],
+    "companies": ["microsoft", "google", "apple", "intel", "lenovo"]
   };
-  var getWord = function (category, number) {
-    return availableWords.category.number;
+  function getWord (category, number) {
+    return availableWords[category][number];
   }
   
-  var generateWord = function (category) {
+  function generateWord (category) {
     i = Math.ceil(Math.random()*4);
-    generatedWord = getWord(category, i);
+    generatedWord = this.get(category, i);
     var wordArray = [];
     for(var i = 0; i < generatedWord.length; i++) {
         wordArray.push(generatedWord.charAt(i));
     }
-    //call methods here
-    return generatedWord;
+    this.word = generatedWord;
+    this.wordArray = wordArray;
+    this.fill(); //we can tell it to fill since generate and fill usually take place @ same time
   }
 
-  var fillWord = function(wordArray) {
+  function fillWord () {
+    wordArray = this.wordArray;
     var wordDiv = $('.word');
     var vowels = ['a', 'e', 'i', 'o', 'u'];
     for(var i = 0; i < wordArray.length; i++) {
@@ -77,25 +106,46 @@ $(document).ready(function () {
         wordDiv.append("<span class='letterInWord'>_</span>");
       }
     }
+    this.wordArray = wordArray;
   }
   
-  var guess = function(letter, wordArray) {
+  function guessWord (letter) {
     var index, isValidGuess;
-    console.log(index);
+    var wordArray = this.wordArray;
     //for multiple matches
     while(wordArray.indexOf(letter) != -1) {
       index = wordArray.indexOf(letter);
-      console.log(".letterInWord:eq("+index+")");
       $(".letterInWord:eq("+index+")").html(wordArray[index].toUpperCase());
       wordArray[index] = "+"; //to signify it has been guessed
       isValidGuess = true;
     }
+    if (wordArray.allValuesSame()) {
+      this.guessesLeft = 0;
+      $('.word').html("Congratulations! You guessed the right word, "+this.word+". To play again, please select a new category.");
+    }
+    this.wordArray = wordArray;
     if(isValidGuess) return true;
+    var guessedBefore = $("#"+letter).hasClass("used");
+    if(!guessedBefore) this.guessesLeft -= 1;
+    if(!this.guessesLeft) {
+      $('.word').html("Game over! The word was <strong>"+this.word.toUpperCase()+"</strong>. To play again, please select a new category.");
+    }
     return false;
   }
   
-  fillWord(['h', 'i', 'v', 'h', 'h']);
+  function resetWord () {
+    this.word = "";
+    this.wordArray = [];
+    this.guessesLeft = 5;
+    $('.word').html('');
+    letters.reset();
+  }
+  word.generate($('#chooseCategory option:selected').val());
+  $('#chooseCategory').on("change", function () {
+    word.reset();
+    word.generate($('#chooseCategory option:selected').val());
+  });
   
-  guess('h', ['h', 'i', 'v', 'h', 'h']);
+  
 
 });
