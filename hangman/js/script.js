@@ -75,7 +75,7 @@ $(document).ready(function () {
   }
   
   function generateWord (category) {
-    i = Math.ceil(Math.random()*this.availableWords[category].length-2); //minus two since index starts @ 0 and last field is taken by the prototype
+    i = Math.ceil(Math.random()*(this.availableWords[category].length-2)); //minus two since index starts @ 0 and last field is taken by the prototype
     generatedWord = this.get(category, i);
     var wordArray = [];
     for(var i = 0; i < generatedWord.length; i++) {
