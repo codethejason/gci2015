@@ -10,8 +10,6 @@ window.onload = function () {
     context.lineTo(x2, y2);
     context.stroke();
   };
-
-  var stand, hanger, head, body, arms, legs;
   
   stand = function () {
     draw(25,25, 25, 175);
@@ -44,9 +42,4 @@ window.onload = function () {
   };
   
   stand();
-  hanger();
-  head();
-  stick();
-  arms();
-  legs();
 };

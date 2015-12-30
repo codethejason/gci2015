@@ -1,5 +1,5 @@
 //initialize variables
-var stand, hanger, head, body, arms, legs;
+var stand, hanger, head, stick, arms, legs;
 
 //make a prototype to be used in script.js
 Array.prototype.allValuesSame = function() {

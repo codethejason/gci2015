@@ -1,4 +1,5 @@
 $(document).ready(function () {  
+  /***Objects***/
   var letters = {
     alphabet: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
         'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
@@ -8,6 +9,26 @@ $(document).ready(function () {
     reset: resetLetters
   }
   
+   var word = {
+    availableWords: {
+      "animals": ["bear", "lion", "kangaroo", "tiger", "frog"],
+      "chores": ["taking out the trash", "washing the dishes", "vacuuming", "tending the garden", "dusting"],
+      "countries": ["india", "china", "taiwan", "france", "germany"],
+      "sports": ["hockey", "basketball", "football", "baseball", "tennis"],
+      "companies": ["microsoft", "google", "apple", "intel", "lenovo"]
+  },
+    addAvailableWords: addAvailableWords,
+    word: "",
+    wordArray: [],
+    guessesLeft: 5,
+    get: getWord,
+    generate: generateWord,
+    fill: fillWord,
+    guess: guessWord,
+    reset: resetWord
+  };
+  
+  /***For letters object***/
   function populate () {
     var lettersForGuessing = $('.lettersForGuessing');
     var vowels = ['a', 'e', 'i', 'o', 'u'];
@@ -37,31 +58,20 @@ $(document).ready(function () {
     }
   }
   
-  
-  var word = {
-    word: "",
-    wordArray: [],
-    guessesLeft: 5,
-    get: getWord,
-    generate: generateWord,
-    fill: fillWord,
-    guess: guessWord,
-    reset: resetWord
-  };
-  
-  var availableWords = {
-    "animals": ["bear", "lion", "kangaroo", "tiger", "frog"],
-    "chores": ["taking out the trash", "washing the dishes", "vacuuming", "tending the garden", "dusting"],
-    "countries": ["india", "china", "taiwan", "france", "germany"],
-    "sports": ["hockey", "basketball", "football", "baseball", "tennis"],
-    "companies": ["microsoft", "google", "apple", "intel", "lenovo"]
-  };
+  /***For word object***/
+  function addAvailableWords(category, string) {
+    var words = string.split(",");
+    for(var newWord in words) {
+      word.availableWords[category].push(newWord);
+    }
+  }
+
   function getWord (category, number) {
-    return availableWords[category][number];
+    return this.availableWords[category][number];
   }
   
   function generateWord (category) {
-    i = Math.ceil(Math.random()*availableWords[category].length-1);
+    i = Math.ceil(Math.random()*this.availableWords[category].length-1);
     generatedWord = this.get(category, i);
     var wordArray = [];
     for(var i = 0; i < generatedWord.length; i++) {
@@ -99,14 +109,17 @@ $(document).ready(function () {
     }
     if (wordArray.allValuesSame()) {
       this.guessesLeft = 0;
-      $('.word').html("Congratulations! You guessed the right word, "+this.word+". To play again, please select a new category.");
+      $('.word').html("Congratulations! You guessed the right word, "+this.word.toUpperCase()+". To play again, please select a new category.");
     }
     this.wordArray = wordArray;
     if(isValidGuess) return true;
     var guessedBefore = $("#"+letter).hasClass("used");
-    if(!guessedBefore) this.guessesLeft -= 1;
+    if(!guessedBefore) {
+      this.guessesLeft -= 1;
+      hangmanDrawer(this.guessesLeft);
+    };
     if(!this.guessesLeft) {
-      $('.word').html("Game over! The word was <strong>"+this.word.toUpperCase()+"</strong>. To play again, please select a new category.");
+      $('.word').html("Game over! The word was "+this.word.toUpperCase()+". To play again, please select a new category.");
     }
     return false;
   }
@@ -117,6 +130,16 @@ $(document).ready(function () {
     this.guessesLeft = 5;
     $('.word').html('');
     letters.reset();
+  }
+  
+  function hangmanDrawer(numberofGuessesLeft) {
+    switch(numberofGuessesLeft) {
+      case 4: hanger(); break;
+      case 3: head(); break;
+      case 2: stick(); break;
+      case 1: arms(); break;
+      case 0: legs(); break;
+    }
   }
   
   /***
