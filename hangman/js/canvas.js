@@ -11,35 +11,48 @@ window.onload = function () {
     context.stroke();
   };
   
-  stand = function () {
+  function stand () {
     draw(25,25, 25, 175);
     draw(25, 175, 175, 175);
     draw(25, 25, 175, 25);
   };
 
-  hanger = function () {
-    draw(100, 25, 100, 50);
+  function hanger () {
+  draw(100, 25, 100, 50);
   };
 
-  head = function () {
+  function head () {
     context.beginPath();
     context.arc(100, 60, 10, 0, 2*Math.PI);
     context.stroke();
   };
 
-  stick = function () {
+  function stick () {
     draw(100, 70, 100, 120);
   };
 
-  arms = function () {
+  function arms () {
     draw(100, 90, 80, 80); 
     draw(100, 90, 120, 80);
   };
 
-  legs = function () {
+  function legs () {
     draw(100, 120, 80, 140); 
     draw(100, 120, 120, 140);
   };
   
+  function wipe() {
+    context.clearRect (0, 0, 200, 200);
+  }
   stand();
+  
+  canvas = {
+    stand: stand,
+    hanger: hanger,
+    head: head,
+    stick: stick,
+    arms: arms,
+    legs: legs,
+    wipe: wipe
+  }
 };

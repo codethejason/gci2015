@@ -64,7 +64,9 @@ $(document).ready(function () {
     var words = string.split(",");
     //the for in syntax only returns the key
     for(var key in words) {
-      word.availableWords[category].push(words[key]);
+      if(words[key] != '') { //if string is not empty then push it
+        word.availableWords[category].push(words[key]);
+      }
     }
   }
 
@@ -73,7 +75,7 @@ $(document).ready(function () {
   }
   
   function generateWord (category) {
-    i = Math.ceil(Math.random()*this.availableWords[category].length-1);
+    i = Math.ceil(Math.random()*this.availableWords[category].length-2); //minus two since index starts @ 0 and last field is taken by the prototype
     generatedWord = this.get(category, i);
     var wordArray = [];
     for(var i = 0; i < generatedWord.length; i++) {
@@ -136,11 +138,11 @@ $(document).ready(function () {
   
   function hangmanDrawer(numberofGuessesLeft) {
     switch(numberofGuessesLeft) {
-      case 4: hanger(); break;
-      case 3: head(); break;
-      case 2: stick(); break;
-      case 1: arms(); break;
-      case 0: legs(); break;
+      case 4: canvas.hanger(); break;
+      case 3: canvas.head(); break;
+      case 2: canvas.stick(); break;
+      case 1: canvas.arms(); break;
+      case 0: canvas.legs(); break;
     }
   }
   
@@ -166,18 +168,25 @@ $(document).ready(function () {
   $('#chooseCategory').on("change", function () {
     word.reset();
     word.generate($('#chooseCategory option:selected').val());
+    canvas.wipe();
+    canvas.stand();
+  });
+  
+  $('#activateNewWords').on("click", function () {
+    $('#newWordsContainer').css("top", "50%");
+    $('.overlay').css("display", "block");
   });
   
   $('#submit').on("click", function () {
     var string = $('#newWords').val();
     var category = $('#newWordSelect option:selected').val();
     word.addAvailableWords(category, string);
-    console.log(word.availableWords["animals"]);
     $('.result').html("Added!");
   });
 
   $('.overlay').on("click", function () {
-    $('#newWordsContainer').css("top", "100%").css("margin-top", 0);
+    $('#newWordsContainer').css("top", "200%");
     $('.overlay').css("display", "none");
   });
+  
 });
