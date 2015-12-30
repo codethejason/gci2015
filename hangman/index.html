@@ -33,10 +33,11 @@
       
     <canvas id="hangman" width="200" height="200">Your browser is not supported.</canvas>
   </div>
-  <div id="addNewWordsContainer">
+  <div class="overlay"></div>
+  <div id="newWordsContainer">
+    <h2>Add New Words</h2>
     <p>Think the words are too limited? Feel free to add some of your own words and challenge your friends!</p>
     <p>Select the category and enter the words, separating each one by a comma.</p>
-    <form id="addNewWords">
     <select id="newWordSelect">
       <option value="animals">Animals</option>
       <option value="chores">Chores</option>
@@ -44,9 +45,9 @@
       <option value="sports">Sports</option>
       <option value="companies">Companies</option>
     </select>
-      <textarea rows="4" cols="50">
-        
-    </form>
+    <textarea id="newWords" rows="4" cols="50" placeholder="item1,item2,item3"></textarea>
+    <button id="submit" type="submit">Submit</button>
+    <div class="result"></div>
   </div>
 </body>
 </html>

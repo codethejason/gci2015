@@ -59,10 +59,12 @@ $(document).ready(function () {
   }
   
   /***For word object***/
+  
   function addAvailableWords(category, string) {
     var words = string.split(",");
-    for(var newWord in words) {
-      word.availableWords[category].push(newWord);
+    //the for in syntax only returns the key
+    for(var key in words) {
+      word.availableWords[category].push(words[key]);
     }
   }
 
@@ -166,5 +168,16 @@ $(document).ready(function () {
     word.generate($('#chooseCategory option:selected').val());
   });
   
+  $('#submit').on("click", function () {
+    var string = $('#newWords').val();
+    var category = $('#newWordSelect option:selected').val();
+    word.addAvailableWords(category, string);
+    console.log(word.availableWords["animals"]);
+    $('.result').html("Added!");
+  });
 
+  $('.overlay').on("click", function () {
+    $('#newWordsContainer').css("top", "100%").css("margin-top", 0);
+    $('.overlay').css("display", "none");
+  });
 });
