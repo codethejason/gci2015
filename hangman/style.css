@@ -4,14 +4,13 @@ html {
   min-height: 100%; }
 
 body {
-  height: 100vh;
+  height: 100%;
   margin: 0;
   padding: 0;
   background-color: #404040;
   font-family: "Open Sans", Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, Helvetica, Arial, sans-serif;
   text-align: center;
-  color: #333333;
-  overflow: hidden; }
+  color: #333333; }
 
 a {
   text-decoration: none;
@@ -71,11 +70,6 @@ div.playCircle {
 div.content {
   color: #ffffff; }
 
-div.column {
-  float: left;
-  width: 50vw;
-  padding: 20px; }
-
 select#chooseCategory {
   padding: 10px;
   background-color: #FFC65D;
@@ -87,9 +81,12 @@ select#chooseCategory {
 
 div.lettersForGuessing {
   display: flex;
+  width: 50%;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 20px; }
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto; }
   div.lettersForGuessing span.letter {
     color: #FFC65D;
     display: inline-block;
@@ -113,7 +110,11 @@ div.lettersForGuessing {
       background-color: #FFC65D; }
 
 div.word {
-  margin-top: 100px; }
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  justify-content: center;
+  margin: 50px auto; }
 
 span.letterInWord {
   font-size: 70px;
@@ -121,7 +122,16 @@ span.letterInWord {
   margin-left: 10px;
   margin-right: 10px; }
 
-div.clearfix {
-  clear: both; }
+canvas#hangman {
+  position: absolute;
+  bottom: 10%;
+  right: 10%;
+  border-radius: 5px;
+  background-color: #4CC3D9; }
+
+@media screen and (max-width: 1000px) {
+  canvas#hangman {
+    position: static !important;
+    margin-bottom: 30px; } }
 
 /*# sourceMappingURL=style.css.map */
