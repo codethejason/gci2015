@@ -19,7 +19,7 @@ window.onload = function() {
   
   var Board = {
     board: gameBoard,
-    element: $('div#board'),
+    piecesElement: $('div.pieces'),
     tilesElement: $('div.tiles'),
     dictionary: ["0vmin", "10vmin", "20vmin", "30vmin", "40vmin", "50vmin", "60vmin", "70vmin", "80vmin", "90vmin"],
     initalize: function () {
@@ -43,4 +43,8 @@ window.onload = function() {
   }
   
   Board.initalize();
+  
+  $('.piece').on("click", function () {
+    $(this).toggleClass('selected');
+  });
 }

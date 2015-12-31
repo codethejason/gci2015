@@ -8,8 +8,8 @@ $fontColor: #333333
 $shadow: 1px 1px 3px $dark
 
 @mixin gamePiece($color, $factor)
-  width: 10vmin * $factor
-  height: 10vmin * $factor
+  width: 8vmin * $factor
+  height: 8vmin * $factor
   background-color: $color
   border-radius: 5vmin
   display: inline-block
@@ -122,3 +122,30 @@ div#board
     height: 10vmin
     position: absolute
     background-color: $dark
+
+  .player1pieces
+    .piece
+      position: absolute
+      @include gamePiece(lighten($red, 10%), 1)
+      top: 0
+      left: 10vmin
+      margin-top: 1vmin
+      margin-left: 1vmin
+      cursor: pointer
+
+      &.selected
+        box-shadow: 0 0 10px 5px $blue
+        
+  .player2pieces
+    .piece
+      position: absolute
+      @include gamePiece($light, 1)
+      top: 10vmin
+      left: 0
+      margin-top: 1vmin
+      margin-left: 1vmin
+      cursor: pointer
+
+      &.selected
+        box-shadow: 0 0 10px 5px $blue
+      

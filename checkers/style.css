@@ -63,8 +63,8 @@ div.stats {
     border-radius: 3px 0 0 3px;
     color: #232621; }
     div.stats #player1 .capturedPiece {
-      width: 3vmin;
-      height: 3vmin;
+      width: 2.4vmin;
+      height: 2.4vmin;
       background-color: #232621;
       border-radius: 5vmin;
       display: inline-block; }
@@ -79,8 +79,8 @@ div.stats {
     border-radius: 0 3px 3px 0;
     color: #B93848; }
     div.stats #player2 .capturedPiece {
-      width: 3vmin;
-      height: 3vmin;
+      width: 2.4vmin;
+      height: 2.4vmin;
       background-color: #B93848;
       border-radius: 5vmin;
       display: inline-block; }
@@ -100,5 +100,33 @@ div#board {
     height: 10vmin;
     position: absolute;
     background-color: #232621; }
+  div#board .player1pieces .piece {
+    position: absolute;
+    width: 8vmin;
+    height: 8vmin;
+    background-color: #cc5866;
+    border-radius: 5vmin;
+    display: inline-block;
+    top: 0;
+    left: 10vmin;
+    margin-top: 1vmin;
+    margin-left: 1vmin;
+    cursor: pointer; }
+    div#board .player1pieces .piece.selected {
+      box-shadow: 0 0 10px 5px #16A8C7; }
+  div#board .player2pieces .piece {
+    position: absolute;
+    width: 8vmin;
+    height: 8vmin;
+    background-color: #F1F1FF;
+    border-radius: 5vmin;
+    display: inline-block;
+    top: 10vmin;
+    left: 0;
+    margin-top: 1vmin;
+    margin-left: 1vmin;
+    cursor: pointer; }
+    div#board .player2pieces .piece.selected {
+      box-shadow: 0 0 10px 5px #16A8C7; }
 
 /*# sourceMappingURL=style.css.map */
