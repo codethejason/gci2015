@@ -10,6 +10,10 @@ html, body {
   font-family: "Lato", Calibri, sans-serif;
   font-size: 16px;
   background-color: #3A3042; }
+  html h2, body h2 {
+    font-size: 1.3em; }
+  html h3, body h3 {
+    font-size: 1.1em; }
   html a, body a {
     text-decoration: none;
     color: #333333;
@@ -20,11 +24,14 @@ html, body {
     border: 0;
     height: 1px;
     background-color: #333;
-    background-image: linear-gradient(to right, #333333, #888); }
+    background-image: linear-gradient(to right, #333333, #ccc); }
+  html .clearfix, body .clearfix {
+    clear: both; }
 
 div.column {
   position: relative;
   float: left;
+  overflow: auto;
   height: 100%; }
   div.column:nth-of-type(1) {
     width: 40%; }
@@ -33,7 +40,7 @@ div.column {
 
 div.info, div.stats {
   width: 80%;
-  margin: 20vmin auto 0;
+  margin: 15vmin auto 0;
   box-sizing: border-box;
   padding: 20px 30px;
   background-color: #F1F1FF;
@@ -43,8 +50,42 @@ div.info, div.stats {
 
 div.stats {
   margin: 50px auto !important; }
+  div.stats .wrapper {
+    display: flex; }
+  div.stats #player1 {
+    text-align: center;
+    display: inline-block;
+    width: 50%;
+    float: left;
+    background-color: #B93848;
+    box-sizing: border-box;
+    padding: 0 15px 20px;
+    border-radius: 3px 0 0 3px;
+    color: #232621; }
+    div.stats #player1 .capturedPiece {
+      width: 3vmin;
+      height: 3vmin;
+      background-color: #232621;
+      border-radius: 5vmin;
+      display: inline-block; }
+  div.stats #player2 {
+    text-align: center;
+    display: inline-block;
+    width: 50%;
+    float: left;
+    background-color: #232621;
+    box-sizing: border-box;
+    padding: 0 15px 20px;
+    border-radius: 0 3px 3px 0;
+    color: #B93848; }
+    div.stats #player2 .capturedPiece {
+      width: 3vmin;
+      height: 3vmin;
+      background-color: #B93848;
+      border-radius: 5vmin;
+      display: inline-block; }
 
-div.board {
+div#board {
   position: absolute;
   top: calc(50% - 40vmin);
   left: calc(50% - 40vmin);
@@ -52,6 +93,12 @@ div.board {
   height: 80vmin;
   border-radius: 5px;
   box-shadow: 1px 1px 3px #232621;
-  background-color: #232621; }
+  background-color: #B93848;
+  overflow: hidden; }
+  div#board .tile {
+    width: 10vmin;
+    height: 10vmin;
+    position: absolute;
+    background-color: #232621; }
 
 /*# sourceMappingURL=style.css.map */
