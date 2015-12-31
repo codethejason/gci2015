@@ -23,6 +23,10 @@ window.onload = function() {
       this.player = 1;
     else
       this.player = 2;
+    this.makeKing = function () {
+      this.element.css("backgroundImage", "url('king"+this.player+".png')");
+      this.king = true;
+    }
     this.move = function (tile) { 
       this.element.removeClass('selected'); 
       if(!Board.isValidPlacetoMove(tile.position[0], tile.position[1])) return false;
@@ -36,6 +40,8 @@ window.onload = function() {
       this.element.css('top', Board.dictionary[this.position[0]]);
       this.element.css('left', Board.dictionary[this.position[1]]);
       Board.board[this.position[0]][this.position[1]] = this.player;
+      if(!this.king && (this.position[0] == 0 || this.position[0] == 7 )) 
+        this.makeKing();
       Board.changePlayerTurn();
       return true;
     };
@@ -55,6 +61,11 @@ window.onload = function() {
           if(pieces[pieceIndex].position[0] == tileToChecky && pieces[pieceIndex].position[1] == tileToCheckx) {
             if(this.player != pieces[pieceIndex].player) {
               pieces[pieceIndex].remove();
+              console.log("Element ID "+pieceIndex+" should be removed.");
+              console.log(Board.board);
+              if(this.canJumpAgain) {
+                
+              }
               return true;
             }
           }
@@ -70,6 +81,7 @@ window.onload = function() {
       if(this.player == 1) $('#player2').append("<div class='capturedPiece'></div>");
       if(this.player == 2) $('#player1').append("<div class='capturedPiece'></div>");
       Board.board[this.position[0]][this.position[1]] = 0;
+      this.position = [];
     }
   }
   
