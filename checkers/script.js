@@ -17,31 +17,60 @@ window.onload = function() {
     this.element = element;
     this.position = position; //row, column
     this.player = '';
+    this.king = false;
     //figure out player by piece id
     if(this.element.attr("id") < 12)
       this.player = 1;
     else
       this.player = 2;
-    this.move = function (where) { //where = 'tl' (top left), 'tr' (top right), 'bl' (bottom left), or 'br' (bottom right)
-      this.element.removeClass('selected');
-      switch(where) {
-        case 'tl': 
-          if(!Board.isValidPlacetoMove(this.position[0]-1, this.position[1]-1)) return false;
-          Board.board[this.position[0]][this.position[1]] = 0;
-          this.position = [this.position[0]-1, this.position[1]-1];
-          break;
-        case 'tr': 
-          if(!Board.isValidPlacetoMove(this.position[0]-1, this.position[1]+1)) return false;
-          Board.board[this.position[0]][this.position[1]] = 0;
-          this.position = [this.position[0]-1, this.position[1]+1];
-          break;
+    this.move = function (tile) { 
+      this.element.removeClass('selected'); 
+      if(!Board.isValidPlacetoMove(tile.position[0], tile.position[1])) return false;
+      if(this.player == 1 && this.king == false) {
+        if(tile.position[0] < this.position[0]) return false;
+      } else if (this.player == 2 && this.king == false) {
+        if(tile.position[0] > this.position[0]) return false;
       }
-      
+      Board.board[this.position[0]][this.position[1]] = 0;
+      this.position = [tile.position[0], tile.position[1]];
       this.element.css('top', Board.dictionary[this.position[0]]);
       this.element.css('left', Board.dictionary[this.position[1]]);
       Board.board[this.position[0]][this.position[1]] = this.player;
+      Board.changePlayerTurn();
       return true;
     };
+    this.opponentJump = function (tile) {
+      //what direction going to
+      var dx = tile.position[1] - this.position[1];
+      var dy = tile.position[0] - this.position[0];
+      if(this.player == 1 && this.king == false) {
+        if(tile.position[0] < this.position[0]) return false;
+      } else if (this.player == 2 && this.king == false) {
+        if(tile.position[0] > this.position[0]) return false;
+      }
+      var tileToCheckx = this.position[1] + dx/2;
+      var tileToChecky = this.position[0] + dy/2;
+      if(!Board.isValidPlacetoMove(tileToChecky, tileToCheckx)) {
+        for(pieceIndex in pieces) {
+          if(pieces[pieceIndex].position[0] == tileToChecky && pieces[pieceIndex].position[1] == tileToCheckx) {
+            if(this.player != pieces[pieceIndex].player) {
+              pieces[pieceIndex].remove();
+              return true;
+            }
+          }
+        }
+        return false;
+      }
+        
+      
+      return false;
+    };
+    this.remove = function () {
+      this.element.css("display", "none");
+      if(this.player == 1) $('#player2').append("<div class='capturedPiece'></div>");
+      if(this.player == 2) $('#player1').append("<div class='capturedPiece'></div>");
+      Board.board[this.position[0]][this.position[1]] = 0;
+    }
   }
   
   function Tile (element, position) {
@@ -49,7 +78,9 @@ window.onload = function() {
     this.position = position;
     this.inRange = function(piece) {
       if(dist(this.position[0], this.position[1], piece.position[0], piece.position[1]) == Math.sqrt(2)) {
-        return true;
+        return 'regular';
+      } else if(dist(this.position[0], this.position[1], piece.position[0], piece.position[1]) == 2*Math.sqrt(2)) {
+        return 'jump';
       }
     };
   }
@@ -58,7 +89,7 @@ window.onload = function() {
   var tiles = [];
   var Board = {
     board: gameBoard,
-    piecesElement: $('div.pieces'),
+    playerTurn: 1,
     tilesElement: $('div.tiles'),
     dictionary: ["0vmin", "10vmin", "20vmin", "30vmin", "40vmin", "50vmin", "60vmin", "70vmin", "80vmin", "90vmin"],
     initalize: function () {
@@ -97,6 +128,13 @@ window.onload = function() {
         return true;
       } return false;
     },
+    changePlayerTurn: function () {
+      if(this.playerTurn == 1) {
+        this.playerTurn = 2;
+        return;
+      }
+      if(this.playerTurn == 2) this.playerTurn = 1;
+    },
     clear: function () {
       location.reload(); 
     }
@@ -106,10 +144,13 @@ window.onload = function() {
   
   $('.piece').on("click", function () {
     var selected;
-    if($(this).hasClass('selected')) selected = true;
-    $('.piece').each(function(index) {$('.piece').eq(index).removeClass('selected')});
-    if(!selected) {
-      $(this).addClass('selected');
+    var isPlayersTurn = ($(this).parent().attr("class").split(' ')[0] == "player"+Board.playerTurn+"pieces");
+    if(isPlayersTurn) {
+      if($(this).hasClass('selected')) selected = true;
+      $('.piece').each(function(index) {$('.piece').eq(index).removeClass('selected')});
+      if(!selected) {
+        $(this).addClass('selected');
+      }
     }
   });
   
@@ -118,12 +159,20 @@ window.onload = function() {
   });
   
   $('.tile').on("click", function () {
-    var tileID = $(this).attr("id").replace(/tile/, '');
-    var tile = tiles[tileID];
-    console.log(tileID);
-    var piece = pieces[$('.selected').attr("id")];
-    if(tile.inRange(piece)) {
-      piece.move(tile.position);
+    if($('.selected').length != 0) {
+      var tileID = $(this).attr("id").replace(/tile/, '');
+      var tile = tiles[tileID];
+      var piece = pieces[$('.selected').attr("id")];
+      var inRange = tile.inRange(piece);
+      if(inRange) {
+        if(inRange == 'jump') {
+          if(piece.opponentJump(tile)) {
+            piece.move(tile);
+          } 
+        } else if(inRange == 'regular') {
+          piece.move(tile);
+        }
+      }
     }
   });
   

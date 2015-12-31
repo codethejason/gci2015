@@ -73,7 +73,7 @@ div.stats {
       border-radius: 5vmin;
       display: inline-block;
       box-sizing: border-box;
-      transition: all 0.3s linear; }
+      transition: all 0.2s linear; }
   div.stats #player2 {
     text-align: center;
     display: inline-block;
@@ -91,7 +91,7 @@ div.stats {
       border-radius: 5vmin;
       display: inline-block;
       box-sizing: border-box;
-      transition: all 0.3s linear; }
+      transition: all 0.2s linear; }
   div.stats button#cleargame {
     display: block;
     border: 0;
@@ -129,7 +129,7 @@ div#board {
     border-radius: 5vmin;
     display: inline-block;
     box-sizing: border-box;
-    transition: all 0.3s linear;
+    transition: all 0.2s linear;
     margin-top: 1vmin;
     margin-left: 1vmin;
     cursor: pointer;
@@ -144,7 +144,7 @@ div#board {
     border-radius: 5vmin;
     display: inline-block;
     box-sizing: border-box;
-    transition: all 0.3s linear;
+    transition: all 0.2s linear;
     margin-top: 1vmin;
     margin-left: 1vmin;
     cursor: pointer;
