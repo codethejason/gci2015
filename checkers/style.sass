@@ -1,0 +1,72 @@
+//Variables
+$red: #B93848
+$purple: #3A3042
+$blue: 16A8C7
+$dark: #232621
+$light: #F1F1FF
+$fontColor: #333333
+$shadow: 1px 1px 3px $dark
+
+html, body
+  position: absolute
+  top: 0
+  left: 0
+  height: 100% //checkboard should always fit inside the screen
+  width: 100%
+  margin: 0
+  padding: 0
+  color: $fontColor
+  font-family: 'Lato', Calibri, sans-serif
+  font-size: 16px
+  background:
+    color: $purple
+   
+  a
+    text-decoration: none
+    color: $fontColor
+    font-weight: 700
+    
+    &:hover
+      text-decoration: underline
+    
+  hr
+    border: 0
+    height: 1px
+    background:
+      color: #333
+      image: linear-gradient(to right, $fontColor, #888)
+
+div.column
+  position: relative
+  float: left
+  height: 100%
+  
+  &:nth-of-type(1)
+    width: 40%
+  
+  &:nth-of-type(2)
+    width: 60%
+    
+div.info 
+  width: 80%
+  margin: 20vmin auto 0
+  box-sizing: border-box
+  padding: 20px 30px
+  background-color: $light
+  color: $purple
+  border-radius: 3px
+  box-shadow: $shadow
+  
+div.stats
+  @extend div.info
+  margin: 50px auto !important
+    
+div.board
+  position: absolute
+  top: calc(50% - 40vmin)
+  left: calc(50% - 40vmin)
+  width: 80vmin
+  height: 80vmin
+  border-radius: 5px
+  box-shadow: $shadow
+  background-color: $dark
