@@ -32,18 +32,17 @@ div.column {
   position: relative;
   float: left;
   overflow: auto;
-  height: 100%; }
-  div.column:nth-of-type(1) {
-    width: 40%; }
-  div.column:nth-of-type(2) {
-    width: 60%; }
+  height: 100%;
+  min-height: 100%;
+  width: 50%; }
 
 @media screen and (max-width: 1000px) {
   div.column {
     width: 100% !important;
-    overflow: hidden; } }
+    overflow: hidden;
+    height: auto; } }
 div.info, div.stats {
-  width: 80%;
+  width: 70%;
   margin: 15vmin auto 0;
   box-sizing: border-box;
   padding: 20px 30px;
@@ -64,7 +63,7 @@ div.stats {
     background-color: #B93848;
     box-sizing: border-box;
     padding: 0 15px 20px;
-    border-radius: 3px 0 0 3px;
+    border-top-left-radius: 3px;
     color: #232621; }
     div.stats #player1 .capturedPiece {
       width: 2.4vmin;
@@ -73,7 +72,7 @@ div.stats {
       background-size: 65%;
       background-repeat: no-repeat;
       background-position: center;
-      border-radius: 5vmin;
+      border-radius: 6vmin;
       display: inline-block;
       box-sizing: border-box;
       transition: all 0.2s linear;
@@ -86,7 +85,7 @@ div.stats {
     background-color: #232621;
     box-sizing: border-box;
     padding: 0 15px 20px;
-    border-radius: 0 3px 3px 0;
+    border-top-right-radius: 3px;
     color: #B93848; }
     div.stats #player2 .capturedPiece {
       width: 2.4vmin;
@@ -95,11 +94,16 @@ div.stats {
       background-size: 65%;
       background-repeat: no-repeat;
       background-position: center;
-      border-radius: 5vmin;
+      border-radius: 6vmin;
       display: inline-block;
       box-sizing: border-box;
       transition: all 0.2s linear;
       margin: 5px; }
+  div.stats div.turn {
+    height: 10px;
+    width: 100%;
+    background: linear-gradient(to right, #BEEE62 50%, transparent 50%);
+    border-radius: 0 0 3px 3px; }
   div.stats button#cleargame {
     display: block;
     border: 0;
@@ -137,7 +141,7 @@ div#board {
     background-size: 65%;
     background-repeat: no-repeat;
     background-position: center;
-    border-radius: 5vmin;
+    border-radius: 6vmin;
     display: inline-block;
     box-sizing: border-box;
     transition: all 0.2s linear;
@@ -155,7 +159,7 @@ div#board {
     background-size: 65%;
     background-repeat: no-repeat;
     background-position: center;
-    border-radius: 5vmin;
+    border-radius: 6vmin;
     display: inline-block;
     box-sizing: border-box;
     transition: all 0.2s linear;
