@@ -61,7 +61,17 @@ window.onload = function() {
       return true;
     };
     
-    //tests if an opponent jump can be made
+    //tests if piece can jump anywhere
+    this.canJumpAny = function () {
+      if(this.canOpponentJump([this.position[0]+2, this.position[1]+2]) ||
+         this.canOpponentJump([this.position[0]+2, this.position[1]-2]) ||
+         this.canOpponentJump([this.position[0]-2, this.position[1]+2]) ||
+         this.canOpponentJump([this.position[0]-2, this.position[1]-2])) {
+        return true;
+      } return false;
+    };
+    
+    //tests if an opponent jump can be made to a specific place
     this.canOpponentJump = function(newPosition) {
       //find what the displacement is
       var dx = newPosition[1] - this.position[1];
@@ -72,6 +82,8 @@ window.onload = function() {
       } else if (this.player == 2 && this.king == false) {
         if(newPosition[0] > this.position[0]) return false;
       }
+      //must be in bounds
+      if(newPosition[0] > 7 || newPosition[1] > 7 || newPosition[0] < 0 || newPosition[1] < 0) return false;
       //middle tile where the piece to be conquered sits
       var tileToCheckx = this.position[1] + dx/2;
       var tileToChecky = this.position[0] + dy/2;
@@ -169,6 +181,7 @@ window.onload = function() {
     },
     //check if the location has an object
     isValidPlacetoMove: function (row, column) {
+      console.log(row); console.log(column); console.log(this.board);
       if(this.board[row][column] == 0) {
         return true;
       } return false;
@@ -232,16 +245,18 @@ window.onload = function() {
         if(inRange == 'jump') {
           if(piece.opponentJump(tile)) {
             piece.move(tile);
-            if(piece.canOpponentJump([piece.position[0]+2, piece.position[1]+2]) ||
-               piece.canOpponentJump([piece.position[0]+2, piece.position[1]-2]) ||
-               piece.canOpponentJump([piece.position[0]-2, piece.position[1]+2]) ||
-               piece.canOpponentJump([piece.position[0]-2, piece.position[1]-2])) {
+            if(piece.canJumpAny()) {
                Board.changePlayerTurn(); //change back to original since another turn can be made
+               piece.element.addClass('selected');
             }
           } 
-          //if it's regular then move it
+          //if it's regular then move it if no jumping is available
         } else if(inRange == 'regular') {
-          piece.move(tile);
+          if(!piece.canJumpAny()) {
+            piece.move(tile);
+          } else {
+            alert("You must jump when possible!");
+          }
         }
       }
     }
