@@ -1,4 +1,4 @@
-# Lights Out
+# Hangman
 
 ## Playing the Game
 Start by pressing the play button. You may select one of five categories. Afterwards, you may select the letters on screen to attempt to guess the right consonants that are in the word. After either winning or losing, you may choose to play again by selecting a new category. You may even choose to add more words to challenge your friends by clicking the button next to the category selection.
