@@ -51,9 +51,10 @@ $(document).ready(function () {
   function resetLetters () {
     var letters = $('.letter');
     var vowels = ['a', 'e', 'i', 'o', 'u'];
+    $('.letter').removeClass('used');
     for(var i = 0; i < this.alphabet.length; i++) {
       if(vowels.indexOf(this.alphabet[i]) != -1) {
-        letters.removeClass('used');
+        $('#'+this.alphabet[i]).addClass('used');
       }
     }
   }
