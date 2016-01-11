@@ -1,3 +1,9 @@
 [submodule "checkers"]
 	path = checkers
 	url = https://github.com/codethejason/checkers
+[submodule "metadata-viewer"]
+	path = metadata-viewer
+	url = https://github.com/codethejason/metadata-viewer
+[submodule "GithubOAuth"]
+	path = GithubOAuth
+	url = https://github.com/codethejason/GithubOAuth
