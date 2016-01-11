@@ -7,3 +7,6 @@
 [submodule "GithubOAuth"]
 	path = GithubOAuth
 	url = https://github.com/codethejason/GithubOAuth
+[submodule "codeignitor_user_system"]
+	path = codeignitor_user_system
+	url = https://github.com/codethejason/usersystem
