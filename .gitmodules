@@ -10,3 +10,6 @@
 [submodule "codeignitor_user_system"]
 	path = codeignitor_user_system
 	url = https://github.com/codethejason/usersystem
+[submodule "email-sender"]
+	path = email-sender
+	url = https://github.com/codethejason/email-sender
